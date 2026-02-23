@@ -3,8 +3,9 @@ public:
     int scoreOfString(string s) {
         int i=0,j=1;
         int sum=0;
-        while(j<s.size()){
-            sum+=abs(s[i++]-s[j++]);
+        while(i<s.size()-1){
+            sum+=abs(s[i]-s[i+1]);
+            i++;
         }
         return sum;
     }
