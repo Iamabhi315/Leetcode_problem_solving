@@ -1,23 +1,18 @@
 class Solution {
 public:
     vector<int> sortByBits(vector<int>& arr) {
-        int n=arr.size();
-        for(int i=0;i<n;i++){
-            for(int j=0;j<n-i-1;j++){
-                if(__builtin_popcount(arr[j]) > __builtin_popcount(arr[j+1])){
-                    int temp=arr[j];
-                    arr[j]=arr[j+1];
-                    arr[j+1]=temp;
-                }
-                else if(__builtin_popcount(arr[j]) == __builtin_popcount(arr[j+1])
-                    &&   arr[j]>=arr[j+1]){
-                    int temp=arr[j];
-                    arr[j]=arr[j+1];
-                    arr[j+1]=temp;
-                }
-                
-            }
-        }
+        
+        sort(arr.begin(), arr.end(), [](int a, int b){
+            
+            int countA = __builtin_popcount(a);
+            int countB = __builtin_popcount(b);
+            
+            if(countA == countB)
+                return a < b;   // if same bits → smaller number first
+            
+            return countA < countB; // otherwise sort by bit count
+        });
+        
         return arr;
     }
 };
