@@ -1,22 +1,19 @@
 class Solution {
 public:
     vector<int> findErrorNums(vector<int>& nums) {
-        unordered_map<int ,int> mp;
-        int n = nums.size();
+        vector<int> freq(nums.size()+1, 0);
 
-        long long totalSum = (n*n + n) / 2;   // expected sum
-        long long arraySum = 0;
-
-        int temp; // duplicate number
-
-        for(int i=0;i<n;i++){
-            mp[nums[i]]++;
-            arraySum += nums[i];
-
-            if(mp[nums[i]] == 2)
-                temp = nums[i];
+        for(int x : nums) {
+            freq[x]++;
         }
 
-        return {temp, static_cast<int>(totalSum - (arraySum - temp))};
+        int duplicate, missing;
+
+        for(int i = 1; i <= nums.size(); i++) {
+            if(freq[i] == 2) duplicate = i;
+            if(freq[i] == 0) missing = i;
+        }
+
+        return {duplicate, missing};
     }
 };
