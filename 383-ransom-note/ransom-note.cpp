@@ -1,20 +1,22 @@
 class Solution {
 public:
     bool canConstruct(string ransomNote, string magazine) {
-        vector<int> count(26,0);
-
-        for (auto c : magazine)
+        unordered_map<int, int>mp;
+        for(int i = 0; i < magazine.size(); i++) mp[magazine[i]]++;
+        bool result = false;
+        for(int i = 0; i < ransomNote.size(); i++)
         {
-            count[c - 'a']++;
+            if(mp.find(ransomNote[i]) != mp.end() && mp[ransomNote[i]]>0)
+            {
+                result = true;
+                mp[ransomNote[i]]--;
+            }
+            else
+            {
+                result=false;
+                break;
+            }
         }
-
-        for (auto c : ransomNote)
-        {
-            if (count[c - 'a'] <= 0)    return false;
-            count[c - 'a']--;
-        }
-
-        
-        return true;
+        return result;
     }
 };
