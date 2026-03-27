@@ -2,9 +2,10 @@ class Solution {
 public:
     bool isPathCrossing(string path) {
         int x = 0, y = 0;
-        unordered_set<string> st;
+        unordered_set<long long> st;
 
-        st.insert("0,0");
+        long long key = 0; // (0,0)
+        st.insert(key);
 
         for(char c : path) {
             if(c == 'N') y++;
@@ -12,10 +13,9 @@ public:
             else if(c == 'E') x++;
             else x--;
 
-            string key = to_string(x) + "," + to_string(y);
+            long long key = (long long)x * 1000000 + y;
 
-            if(st.count(key))
-                return true;
+            if(st.count(key)) return true;
 
             st.insert(key);
         }
