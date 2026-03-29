@@ -1,8 +1,11 @@
 class Solution {
 public:
     bool canBeEqual(string s1, string s2) {
-        if(s1[0] == s2[2]) swap(s1[0] , s1[2]);
-        if(s1[1] == s2[3]) swap(s1[1] , s1[3]);
+        for(int i = 0; i < 2; i++){
+            if(s1[i] != s2[i]){
+                swap(s1[i], s1[i+2]);
+            }
+        }
         return s1 == s2;
     }
 };
