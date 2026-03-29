@@ -1,25 +1,23 @@
 class Solution {
 public:
     int countStudents(vector<int>& students, vector<int>& sandwiches) {
-        int count = 0;
-        int i = 0;
-        int j = 0;
+        int count0 = 0, count1 = 0;
 
-        while(count < students.size() && j < sandwiches.size()){
-            if(students[i] == sandwiches[j]){
-                count = 0;
-                students.erase(students.begin() + i);
-                j++;
+        for(int s : students){
+            if(s == 0) count0++;
+            else count1++;
+        }
 
-                if(students.size() == 0) break;
-                i = i % students.size();
-            }
-            else{
-                count++;
-                i = (i+1) % students.size();
+        for(int s : sandwiches){
+            if(s == 0){
+                if(count0 == 0) return count1;
+                count0--;
+            } else {
+                if(count1 == 0) return count0;
+                count1--;
             }
         }
 
-        return students.size();
+        return 0;
     }
 };
