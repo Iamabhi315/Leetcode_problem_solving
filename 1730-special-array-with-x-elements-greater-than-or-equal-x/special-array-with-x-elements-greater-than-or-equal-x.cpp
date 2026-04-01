@@ -1,13 +1,26 @@
 class Solution {
 public:
     int specialArray(vector<int>& nums) {
-        for(int i = 0; i <= nums.size(); i++){
-            int count = 0;
-            for(int j = 0; j < nums.size(); j++){
-                if(nums[j] >= i) count++;
-            }
-            if(count == i) return i;     
+        int n = nums.size();
+        
+        // Step 1: Counting array
+        vector<int> count(n + 1, 0);
+
+        for(int num : nums){
+            if(num >= n) count[n]++;
+            else count[num]++;
         }
+
+        // Step 2: Prefix sum from right
+        int total = 0;
+        for(int i = n; i >= 0; i--){
+            total += count[i];   // elements >= i
+            
+            if(total == i){
+                return i;
+            }
+        }
+
         return -1;
     }
 };
