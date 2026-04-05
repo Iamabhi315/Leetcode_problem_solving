@@ -1,24 +1,30 @@
 class Solution {
 public:
     vector<int> relativeSortArray(vector<int>& arr1, vector<int>& arr2) {
-        unordered_map<int , int>mp;
-        vector<int>res;
-        for(int i = 0; i < arr1.size(); i++) mp[arr1[i]]++;
-        for(int i = 0; i < arr2.size(); i++){
-            while(mp[arr2[i]] > 0){
-                res.push_back(arr2[i]);
-                mp[arr2[i]]--;
+        vector<int> count(1001, 0);
+        vector<int> res;
+
+        // Step 1: count frequency
+        for(int x : arr1){
+            count[x]++;
         }
-        }
-        vector<int>temp;
-        for(auto &p : mp){
-            int freq = p.second;
-            while(freq--){
-                temp.push_back(p.first);
+
+        // Step 2: place arr2 elements
+        for(int x : arr2){
+            while(count[x] > 0){
+                res.push_back(x);
+                count[x]--;
             }
         }
-        sort(temp.begin(), temp.end());
-        for(int i = 0; i < temp.size(); i++) res.push_back(temp[i]);
+
+        // Step 3: remaining elements (sorted automatically)
+        for(int i = 0; i <= 1000; i++){
+            while(count[i] > 0){
+                res.push_back(i);
+                count[i]--;
+            }
+        }
+
         return res;
     }
 };
