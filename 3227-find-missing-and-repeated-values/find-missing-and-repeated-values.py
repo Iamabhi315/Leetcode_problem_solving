@@ -1,19 +1,21 @@
 class Solution:
     def findMissingAndRepeatedValues(self, grid: List[List[int]]) -> List[int]:
         n = len(grid)
-        count = defaultdict(int)  
+        seen = set()
+        double = missing = 0
 
         for i in range(n):
             for j in range(n):
-                count[grid[i][j]] += 1
-      
-        double = missing = 0
+                if grid[i][j] in seen:
+                    double = grid[i][j]
+                
+                seen.add(grid[i][j])
 
         for num in range(1,n*n+1):
-            if count[num] == 0:
+            if num not in seen:
                 missing = num
-            if count[num] == 2:
-                double = num
+                break
 
         return [double,missing]
+
     
