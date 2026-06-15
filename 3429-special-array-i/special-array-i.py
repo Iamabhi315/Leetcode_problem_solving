@@ -4,10 +4,8 @@ class Solution(object):
         :type nums: List[int]
         :rtype: bool
         """
-        new_lst = list(map(lambda x: (x%2 == 0),nums))
-        for i in range(1,len(nums)):
-            if new_lst[i-1] == new_lst[i]:
+        for i in range(1, len(nums)):
+            if nums[i - 1] & 1 == nums[i] & 1:
                 return False
-
         return True
         
