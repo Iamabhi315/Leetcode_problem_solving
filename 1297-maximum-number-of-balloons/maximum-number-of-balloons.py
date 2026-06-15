@@ -4,10 +4,16 @@ class Solution(object):
         :type text: str
         :rtype: int
         """
-        countText = Counter(text)
-        balloon = Counter("balloon")
+        count = defaultdict(int)
 
-        res = len(text)
-        for c in balloon:
-            res = min(res, countText[c] // balloon[c])
-        return res
+        for ch in text:
+            count[ch] += 1
+
+        return min(
+            count['b'],
+            count['a'],
+            count['l'] // 2,
+            count['o'] // 2,
+            count['n']
+        )
+        
