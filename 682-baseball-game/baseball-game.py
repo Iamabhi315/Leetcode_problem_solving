@@ -4,15 +4,17 @@ class Solution(object):
         :type operations: List[str]
         :rtype: int
         """
-        record = []
-        for c in operations:
-            if c == "C":
-                record.pop()
-            elif c == "+":
-                record.append(record[-1] + record[-2])
-            elif c == "D":
-                record.append(2*record[-1])
+        stack, res = [], 0
+        for op in operations:
+            if op == "+":
+                res += stack[-1] + stack[-2]
+                stack.append(stack[-1] + stack[-2])
+            elif op == "D":
+                res += (2 * stack[-1])
+                stack.append(2 * stack[-1])
+            elif op == "C":
+                res -= stack.pop()
             else:
-                record.append(int(c))
-        
-        return sum(record)
+                res += int(op)
+                stack.append(int(op))
+        return res
