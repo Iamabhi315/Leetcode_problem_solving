@@ -1,5 +1,9 @@
-class Solution:
-    def evalRPN(self, tokens: List[str]) -> int:
+class Solution(object):
+    def evalRPN(self, tokens):
+        """
+        :type tokens: List[str]
+        :rtype: int
+        """
         stack = []
 
         for op in tokens:
@@ -21,7 +25,7 @@ class Solution:
             elif op == '/':
                 b = stack.pop()
                 a = stack.pop()
-                stack.append(int(a / b))
+                stack.append(int(float(a) / b))
             
             else:
                 stack.append(int(op))
