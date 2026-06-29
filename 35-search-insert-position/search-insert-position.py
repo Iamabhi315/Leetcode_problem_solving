@@ -9,10 +9,6 @@ class Solution:
             mid = low + (high - low)//2
 
             if target == nums[mid]:
-                while mid > 0:
-                    if nums[mid-1] != target:
-                        return mid
-                    mid -= 1
                 return mid
             elif target >= nums[mid]:
                 low = mid + 1
