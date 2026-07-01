@@ -13,10 +13,9 @@ class Solution:
             for b in piles:
                 t_hour += math.ceil(b/m)
                 
-                if t_hour > h:
-                    l = m + 1
-                    break
-            if t_hour <= h:
+            if t_hour > h:
+                l = m + 1
+            else:
                 res = m
                 r = m - 1
         return res
