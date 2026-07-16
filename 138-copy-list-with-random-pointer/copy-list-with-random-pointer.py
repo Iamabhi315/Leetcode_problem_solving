@@ -11,30 +11,35 @@ class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
         if not head:
             return head
-        temp = head
-        dit = {}
-        shallow_copy = None
-        prev = None
+        
+        curr = head
+        while curr:
+            temp = curr
+            curr = curr.next
+            temp.next = Node(temp.val)
+            temp.next.next = curr
 
-        while temp:
-            if not prev:
-                prev = Node(temp.val)
-                shallow_copy = prev
+        curr = head
+        while curr:
+            if not curr.random:
+                curr.next.random = None
             else:
-                prev.next = Node(temp.val)
-                prev = prev.next
-            dit[temp] = prev
-            temp = temp.next
+                curr.next.random = curr.random.next
+            curr = curr.next.next
+        
+        curr = head
+        copyHead = head.next
 
-        deep_copy = shallow_copy
-        while head and shallow_copy:
-            if head.random == None:
-                shallow_copy.random = None
-            else:
-                shallow_copy.random = dit[head.random]
-            head = head.next
-            shallow_copy = shallow_copy.next
+        while curr:
+            copy = curr.next
 
-        return deep_copy
+            curr.next = copy.next        # restore original
+
+            if copy.next:
+                copy.next = copy.next.next   # connect copied list
+
+            curr = curr.next
+        return copyHead
+
 
 
